@@ -72,7 +72,7 @@ export default function DisplayBackground({ backgroundImage }) {
             height: p.size,
             animationDelay: `${p.delay}s`,
             animationDuration: `${p.duration}s`,
-            ['--sparkle-drift']: `${p.drift}px`,
+            '--sparkle-drift': `${p.drift}px`,
           }}
         />
       ))}
