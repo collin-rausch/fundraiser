@@ -16,8 +16,12 @@ import '../routes/Display.css';
 
 const STAGE_W = 1920;
 const STAGE_H = 1080;
-const STAGE_PAD_X = 48;
-const STAGE_PAD_Y = 32;
+/** Per-side inset inside the 1920×1080 stage (content scales to fit) */
+const STAGE_PAD_X = 64;
+const STAGE_PAD_Y = 88;
+/** Extra screen-space margin on full-screen display (not admin preview) */
+const VIEWPORT_INSET_X = 32;
+const VIEWPORT_INSET_Y = 56;
 
 /**
  * Renders the signage display from props.
@@ -27,6 +31,7 @@ const STAGE_PAD_Y = 32;
  */
 export default function DisplayView({ data, embedded = false, animate = true }) {
   const scaleRef = useRef(null);
+  const mainWrapRef = useRef(null);
   const mainRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -66,20 +71,36 @@ export default function DisplayView({ data, embedded = false, animate = true }) 
 
       if (vw <= 0 || vh <= 0) return;
 
-      const stageScale = Math.min(vw / STAGE_W, vh / STAGE_H);
+      const insetX = embedded ? 0 : VIEWPORT_INSET_X;
+      const insetY = embedded ? 0 : VIEWPORT_INSET_Y;
+      const stageScale = Math.min(
+        (vw - insetX * 2) / STAGE_W,
+        (vh - insetY * 2) / STAGE_H
+      );
 
       stage.style.position = 'absolute';
       stage.style.left = '50%';
       stage.style.top = '50%';
       stage.style.transform = `translate(-50%, -50%) scale(${stageScale})`;
 
-      if (!main) return;
+      const wrap = mainWrapRef.current;
+      if (!main || !wrap) return;
       main.style.transform = 'none';
-      const availW = STAGE_W - STAGE_PAD_X;
-      const availH = STAGE_H - STAGE_PAD_Y;
+      main.style.width = '';
+      main.style.height = '';
+      wrap.style.width = '';
+      wrap.style.height = '';
+
+      const availW = STAGE_W - STAGE_PAD_X * 2;
+      const availH = STAGE_H - STAGE_PAD_Y * 2;
       const { offsetWidth: cw, offsetHeight: ch } = main;
       if (cw > 0 && ch > 0) {
         const contentScale = Math.min(availW / cw, availH / ch);
+        wrap.style.width = `${cw * contentScale}px`;
+        wrap.style.height = `${ch * contentScale}px`;
+        main.style.width = `${cw}px`;
+        main.style.height = `${ch}px`;
+        main.style.transformOrigin = 'top left';
         main.style.transform = `scale(${contentScale})`;
       }
     };
@@ -97,6 +118,7 @@ export default function DisplayView({ data, embedded = false, animate = true }) 
       window.visualViewport?.addEventListener('resize', onResize);
       window.visualViewport?.addEventListener('scroll', onResize);
       if (mainRef.current) ro.observe(mainRef.current);
+      if (mainWrapRef.current) ro.observe(mainWrapRef.current);
     }
 
     return () => {
@@ -130,12 +152,13 @@ export default function DisplayView({ data, embedded = false, animate = true }) 
         )}
 
         <div className="display-stage" ref={scaleRef}>
-          <div className="display-main" ref={mainRef}>
-            <header className="display-header display-header-top">
+          <div className="display-main-wrap" ref={mainWrapRef}>
+            <div className="display-main" ref={mainRef}>
+              <header className="display-header display-header-top">
               <h1 className="display-title">{data.title}</h1>
-            </header>
+              </header>
 
-            <div className="display-layout">
+              <div className="display-layout">
               <section className="thermo-column" aria-label="Goal thermometer">
                 <ThermometerGoalCap celebrate={isComplete} />
                 <div className="thermo-body-row">
@@ -245,6 +268,7 @@ export default function DisplayView({ data, embedded = false, animate = true }) 
 
                 {showDonors && <DonorCarousel donations={donations} />}
               </section>
+            </div>
             </div>
           </div>
         </div>

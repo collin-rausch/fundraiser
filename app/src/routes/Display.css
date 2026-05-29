@@ -226,7 +226,12 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  padding: 16px 24px;
+  padding: 48px 40px;
+}
+
+.display-main-wrap {
+  flex-shrink: 0;
+  overflow: visible;
 }
 
 .display-main {
@@ -235,7 +240,7 @@
   align-items: center;
   justify-content: center;
   width: max-content;
-  transform-origin: center center;
+  transform-origin: top left;
   flex-shrink: 0;
 }
 
