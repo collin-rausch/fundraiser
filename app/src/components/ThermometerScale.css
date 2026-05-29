@@ -1,0 +1,89 @@
+.thermo-scale-panel {
+  position: relative;
+  width: 112px;
+  height: 100%;
+  flex-shrink: 0;
+  z-index: 2;
+  overflow: visible;
+}
+
+.thermo-scale-row {
+  position: absolute;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  transform: translateY(50%);
+  z-index: 1;
+}
+
+.thermo-scale-row-edge-bottom {
+  bottom: 0;
+  transform: none;
+}
+
+.thermo-scale-row-edge-top {
+  top: 0;
+  bottom: auto;
+  transform: none;
+}
+
+.thermo-scale-row-current {
+  z-index: 10;
+  padding: 4px 0;
+}
+
+.thermo-scale-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--scale-label);
+  text-align: right;
+  min-width: 72px;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.thermo-scale-tick {
+  width: 16px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--scale-tick));
+  box-shadow: var(--scale-tick-shadow);
+  flex-shrink: 0;
+}
+
+.thermo-scale-label-current {
+  color: var(--scale-label-current);
+  font-weight: 800;
+  font-size: 17px;
+  text-shadow: var(--scale-label-current-shadow);
+  background: var(--scale-label-current-bg);
+  padding: 2px 8px 2px 4px;
+  border-radius: 4px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+}
+
+.display-viewport--light .thermo-scale-label-current {
+  border: 1px solid var(--card-border);
+  box-shadow: 0 1px 6px rgba(15, 23, 42, 0.1);
+}
+
+.thermo-scale-tick-current {
+  width: 26px;
+  height: 3px;
+  background: var(--scale-tick-current);
+  box-shadow: var(--scale-tick-current-shadow);
+}
+
+/* Major ticks at 0, 50%, 100% */
+.thermo-scale-row-major .thermo-scale-tick {
+  width: 22px;
+  height: 2px;
+}
+
+.thermo-scale-row-major .thermo-scale-label {
+  font-weight: 700;
+  color: var(--scale-label-major);
+}

@@ -1,0 +1,80 @@
+.donor-carousel {
+  margin-top: 20px;
+}
+
+.donor-carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.donor-carousel-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.donor-carousel-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donor-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.donor-carousel-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.donor-carousel-card.slide-from-left {
+  transform: translateX(-24px);
+}
+
+.donor-carousel-card.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.donor-carousel-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  width: 100%;
+}
+
+.donor-carousel-name {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  max-width: 100%;
+}
+
+.donor-carousel-amount {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--liquid-glow);
+  text-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
+}
+
+.donor-carousel-when {
+  font-size: 16px;
+  color: var(--text-muted);
+}
