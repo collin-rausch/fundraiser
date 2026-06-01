@@ -6,14 +6,14 @@ const VB = { x: 0, y: -12, w: 340, h: 140 };
 
 /** Annular-sector geometry — radial sides from a center below the arch */
 const CX = 170;
-/** 75° span; radii scaled up to preserve banner width at 120° / R143 */
-const SPAN = 75;
+/** 65° span — radii ×1.3 width vs prior 204/138 */
+const SPAN = 65;
 const ANGLE_L = 270 - SPAN / 2;
 const ANGLE_R = 270 + SPAN / 2;
 
-const CY = 219;
-const R_OUTER = 204;
-const R_INNER = 138;
+const CY = 256;
+const R_OUTER = 265;
+const R_INNER = 179;
 /** Midline of gold band */
 const R_TEXT = (R_OUTER + R_INNER) / 2;
 const R_STARS = R_OUTER + 20;
@@ -159,7 +159,7 @@ export default function ThermometerGoalCap({ celebrate }) {
                 textAnchor="middle"
                 side="left"
                 lengthAdjust="spacingAndGlyphs"
-                textLength="180"
+                textLength="234"
               >
                 GOAL!
               </textPath>
