@@ -197,9 +197,15 @@
 .display-viewport-embedded {
   position: absolute;
   inset: 0;
-  width: auto;
-  height: auto;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100%;
   overflow: hidden;
+}
+
+.display-viewport-embedded .display-stage {
+  padding: 0;
 }
 
 .display-logo {

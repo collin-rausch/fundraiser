@@ -205,13 +205,18 @@
 
 .admin-preview-frame {
   position: relative;
-  aspect-ratio: 16 / 9;
   width: 100%;
-  min-height: min(52vw, 280px);
+  aspect-ratio: 16 / 9;
+  max-height: min(72vh, 720px);
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #ddd;
   background: #0a0a0a;
+}
+
+.admin-preview-frame .display-embed-host {
+  position: absolute;
+  inset: 0;
 }
 
 @media (max-width: 479px) {
@@ -267,9 +272,8 @@
   }
 
   .admin-preview-frame {
-    flex: 0 1 auto;
-    min-height: 0;
-    max-height: min(62vh, 560px);
+    flex: 0 0 auto;
+    max-height: min(72vh, 720px);
   }
 }
 
@@ -281,10 +285,6 @@
   .admin-preview-column {
     top: clamp(24px, 8vh, 64px);
     align-self: center;
-  }
-
-  .admin-preview-frame {
-    max-height: min(68vh, 640px);
   }
 }
 
